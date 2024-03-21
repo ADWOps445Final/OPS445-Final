@@ -63,3 +63,40 @@ def get_weather(city):
         return final
     else:
         return None
+
+"""
+ The function search is used to retrieve the location from the end-user. The input is stored in
+ a variable which is then called in a variable weather. The weather variable calls the get_weather
+ function using the city variable as the parameter. If the weather data is  able to be retrieved
+ from OpenWeatherMap, the information is displayed on the interface along with the mataching
+ images which correspond with the weather. However, if the weather data can not be retrieved 
+ it is because the location provided by the end-user does not exist. A message is displayed on the
+ interface telling the end-user the location provided could not be found.
+"""
+def search():
+    city = city_text.get()
+    weather = get_weather(city)
+    if weather:
+        location_lbl['text'] = '{}, {}'.format(weather[0], weather[1])
+        img = Image.open(background_image_path)  # Load the background image
+        img = img.filter(ImageFilter.BLUR)  # blur
+
+        # Resized weather icon
+        icon_size = min(img.size) // 5
+
+        
+        weather_icon = Image.open('weather_icons/{}.png'.format(weather[4]))
+        weather_icon = weather_icon.resize((icon_size, icon_size))
+
+        
+        icon_position = ((img.width - weather_icon.width) // 2, (img.height - weather_icon.height) // 2)
+
+        
+        img.paste(weather_icon, icon_position, weather_icon)
+
+        photo = ImageTk.PhotoImage(img)
+      
+        temp_lbl['text'] = '{:.2f}°C {:.2f}°F'.format(weather[2], weather[3])
+        weather_lbl['text'] = weather[5]
+    else:
+        messagebox.showerror('Error', 'Cannot find city {}'.format(city))
