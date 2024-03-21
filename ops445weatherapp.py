@@ -65,6 +65,21 @@ def get_weather(city):
         return None
 
 """
+ The function get_background_image is used to determine the background image for the interface.
+ The background image is determined by the current time of the end-user at their location. 
+ The hour of the time is used to determine whether the background image display either day
+ or night. If the current hour is greather than 7 (7:00AM) but less than 19 (7:00PM), then
+ the background image is daytime. If not, than the background image is night. 
+""" 
+def get_background_image():
+    now = datetime.now()
+    current_hour = now.hour
+    if current_hour >= 7 and current_hour < 19:
+        return 'weather_icons/daytime.png'
+    else:
+        return 'weather_icons/night.png'
+
+"""
  The function search is used to retrieve the location from the end-user. The input is stored in
  a variable which is then called in a variable weather. The weather variable calls the get_weather
  function using the city variable as the parameter. If the weather data is  able to be retrieved
