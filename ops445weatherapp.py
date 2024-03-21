@@ -100,3 +100,42 @@ def search():
         weather_lbl['text'] = weather[5]
     else:
         messagebox.showerror('Error', 'Cannot find city {}'.format(city))
+
+"""
+ The following section is to create the visual and interfactive elements of the Weather Forecast Application 
+ which the end-user will be engaing with. The visual elements is to create an interace which does interests the
+ end-user and makes them want to engaage with the application. Overall, this section will create the interface which is 
+ front-end that the end-user interacts with. 
+""" 
+app = Tk()
+app.title("Final Project Weather App")
+app.geometry('700x350')
+
+weather_icon_label = Label(app, bg='white')
+weather_icon_label.pack()
+
+city_text = StringVar()
+city_entry = Entry(app, textvariable=city_text)
+city_entry.pack()
+
+search_btn = Button(app, text='Search weather', width=12, command=search)
+search_btn.pack()
+
+
+location_lbl = Label(app, text='', font=('bold', 20))
+location_lbl.pack()
+
+temp_lbl = Label(app, text='', bg='white')
+temp_lbl.pack()
+
+weather_lbl = Label(app, text='', bg='white')
+weather_lbl.pack()
+
+"""
+ The command app.mainloop() is used to ensure the application remains in an infinite loop. 
+ The command which is part of the tkinter package, ensures that the application is in a loop
+ and will not time-out. Furthermore, the application is in loop to allow the end-user to 
+ interact with the application after it has searched for a location; allowing multiple
+ searches.
+""" 
+app.mainloop()
