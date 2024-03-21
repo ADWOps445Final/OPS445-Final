@@ -93,6 +93,7 @@ def search():
     weather = get_weather(city)
     if weather:
         location_lbl['text'] = '{}, {}'.format(weather[0], weather[1])
+        background_image_path = get_background_image()
         img = Image.open(background_image_path)  # Load the background image
         img = img.filter(ImageFilter.BLUR)  # blur
 
@@ -110,7 +111,10 @@ def search():
         img.paste(weather_icon, icon_position, weather_icon)
 
         photo = ImageTk.PhotoImage(img)
-      
+        photo = ImageTk.PhotoImage(img)
+        background_label.config(image=photo)  # image background
+        background_label.image = photo
+     
         temp_lbl['text'] = '{:.2f}°C {:.2f}°F'.format(weather[2], weather[3])
         weather_lbl['text'] = weather[5]
     else:
@@ -125,6 +129,9 @@ def search():
 app = Tk()
 app.title("Final Project Weather App")
 app.geometry('700x350')
+
+background_label = Label(app, bg='white', bd=0)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 weather_icon_label = Label(app, bg='white')
 weather_icon_label.pack()
@@ -145,6 +152,13 @@ temp_lbl.pack()
 
 weather_lbl = Label(app, text='', bg='white')
 weather_lbl.pack()
+
+background_image_path = get_background_image()
+img = Image.open(background_image_path)
+img = img.filter(ImageFilter.BLUR)  # blur
+photo = ImageTk.PhotoImage(img)
+background_label.config(image=photo)  
+background_label.image = photo
 
 """
  The command app.mainloop() is used to ensure the application remains in an infinite loop. 
